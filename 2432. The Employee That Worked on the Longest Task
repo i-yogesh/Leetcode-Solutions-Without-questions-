@@ -1,0 +1,28 @@
+class Solution {
+public:
+    
+    int hardestWorker(int n, vector<vector<int>>& logs) {
+        unordered_map<int, int> mp;
+        mp[logs[0][0]] = logs[0][1];
+        for(int i=1; i<logs.size(); i++)
+        {
+            if(logs[i][1] - logs[i-1][1] > mp[logs[i][0]])
+            {
+                int res = logs[i][1] - logs[i-1][1];
+                mp[logs[i][0]] = res;   
+            }
+        }
+        
+        vector<int> ans;
+        int maxi=-1;
+        for(auto i: mp){
+            maxi = max(i.second, maxi);
+        }
+        for(auto i: mp){
+            if(i.second == maxi)
+                ans.push_back(i.first);
+        }
+        sort(ans.begin(), ans.end());
+        return ans[0];
+    }
+};

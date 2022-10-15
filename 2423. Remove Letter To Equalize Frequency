@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool check(map<char, int> mp)
+    {
+        set<int> st;
+        for(auto it: mp)
+        {
+            if(it.second > 0)
+                st.insert(it.second);
+        }
+        
+        if(st.size() == 1)
+            return true;
+        
+        return false;
+    }
+    bool equalFrequency(string word) {
+        map<char, int> mp;
+        set<int> st;
+        for(auto it: word)
+            mp[it]++;
+        for(auto it: mp){
+            mp[it.first]--;
+            if(check(mp))
+                return true;
+            mp[it.first]++;
+        }
+        return false;
+    }
+};

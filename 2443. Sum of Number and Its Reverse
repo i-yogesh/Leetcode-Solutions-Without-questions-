@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int reverseNum(int num)
+    {
+        int rev=0,rem;
+        while(num!=0)
+        {
+            rem=num%10;
+            rev=rev*10+rem;
+            num=num/10;
+        }
+        return rev;
+    }    
+    bool sumOfNumberAndReverse(int num) {
+        if(num==0)
+            return true;
+        for(int i=1; i<num; i++)
+        {
+            int number = reverseNum(i);
+            if(i+number==num)
+                return true;
+        }
+        return false;
+    }
+};

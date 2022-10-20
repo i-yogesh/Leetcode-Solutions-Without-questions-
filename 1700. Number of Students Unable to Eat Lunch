@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int countStudents(vector<int>& students, vector<int>& sandwiches) {
+        int totalStudents = students.size();
+        int circularStu = 0, squareStu = 0;
+        
+        for(int i=0; i<students.size(); i++){
+            if(students[i] == 0)
+                circularStu++;
+            else
+                squareStu++;
+        }
+        
+        for(int i=0; i<sandwiches.size(); i++)
+        {
+            if(sandwiches[i] == 0){
+                if(circularStu > 0){
+                    totalStudents--;
+                    circularStu--;
+                }
+                else
+                    return totalStudents;
+            }
+            
+            else
+            {
+                if(squareStu > 0){
+                    totalStudents--;
+                    squareStu--;
+                }
+                else
+                    return totalStudents;
+            }
+        }
+        return totalStudents;
+    }
+};

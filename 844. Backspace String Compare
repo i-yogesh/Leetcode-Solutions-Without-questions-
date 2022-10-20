@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string solve(string s)
+    {
+        stack<char> st;
+        for(int i=0; i<s.length(); i++)
+        {
+            char curr = s[i];
+            if(st.empty() && curr!='#')
+                st.push(curr);
+            else if(curr == '#')
+            {
+                if(!st.empty())
+                    st.pop();
+            }
+            else
+                st.push(curr);
+        }
+        
+        s="";
+        while(!st.empty())
+        {
+            s.push_back(st.top());
+            st.pop();
+        }
+        return s;
+    }
+    bool backspaceCompare(string s, string t) {
+        string s1 = solve(s);
+        string t1 = solve(t);
+        if(s1.compare(t1) == 0)
+            return true;
+        else
+            return false;
+    }
+};

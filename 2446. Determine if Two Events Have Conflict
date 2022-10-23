@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int intd(string s)
+    {
+        string ans;
+        for(int i=0; i<s.length(); i++){
+            if(s[i] >= '0' && s[i]<='9'){
+                ans+=s[i];
+            }
+        }
+        int res=stoi(ans);
+        return res;
+    }
+    bool haveConflict(vector<string>& event1, vector<string>& event2) {
+        int e1=intd(event1[0]);
+        int e1E=intd(event1[1]);
+        int e2=intd(event2[0]);
+        int e2E=intd(event2[1]);
+        
+        if((e1<=e2 && e1>=e2E) || e1<=e2E && e1E>=e2E)
+        return true;
+        
+        swap(e1,e2);
+        swap(e1E,e2E);
+        if((e1<=e2 && e1>=e2E) || e1<=e2E && e1E>=e2E)
+        return true;
+        
+        return false;
+    }
+};

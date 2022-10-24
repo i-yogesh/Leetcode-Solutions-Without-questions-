@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long minCost(vector<int>& nums, vector<int>& cost) {
+        #define ll long long
+        map<ll,ll> m;
+        ll tt = 0;
+        for(int i = 0 ; i < nums.size() ; i++)
+                m[nums[i]] += cost[i],tt += cost[i];
+        ll reme = tt/2;
+        ll ans = 0,e = -1;
+        for(auto &[k,v]:m){
+            ll r = min(v,reme);
+            reme -= r;
+            if(!reme){
+                e = k;
+                break;
+            }
+        }
+        for(auto &[k,v]:m)
+            ans += abs(k-e)*v;
+        return ans;
+    }
+};

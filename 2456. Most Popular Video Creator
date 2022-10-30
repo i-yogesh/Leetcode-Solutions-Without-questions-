@@ -1,0 +1,58 @@
+class Solution {
+public:
+    
+// Step 1: Make a map where each creator is mapped to its ids and views. m1
+// Step 2: Create another map for getting the total popularity of each creator m2
+// Step 3: Get the maximum popularity with the help of second map m2
+// Step4: Create a vector of creators who have maximum popularity res
+// Step 4.5: Create answer vector ans
+// Step 5: Now traverse this vector res and create another string vector res for storing creator with id
+// Step 6: Now take the correspondance vector of current creator during iteration with the help of m1
+// Step 7: Sort this vector with help of comaparator i.e if views are not same , sort according to views[acending]
+// Else sort lexicographically
+// Step 8: Add the curent author and sorted res vector's first element's id
+// Step 9: Return ans vector
+    
+    static bool cmp(pair<string, int> p1,  pair<string, int> p2)
+    {
+        if(p1.second != p2.second)
+            return p1.second > p2.second;
+        
+        return p1.first < p2.first;
+    }
+    vector<vector<string>> mostPopularCreator(vector<string>& creators, vector<string>& ids, vector<int>& views) {
+        
+        unordered_map<string, vector<pair<string, int>>> mp;
+        unordered_map<string, long long> mp2;
+        int n = creators.size();
+        for(int i=0; i<n; i++)
+        {
+            mp[creators[i]].push_back({ids[i], views[i]});
+            mp2[creators[i]] += views[i];
+        }
+        
+        long long maxi=-1;
+        for(auto it : mp2){
+            maxi = max(maxi, it.second);
+        }
+        
+        vector<string> helper;
+        for(auto it: mp2)
+        {
+            if(maxi == it.second)
+                helper.push_back(it.first);
+        }
+        
+        vector<vector<string>> ans;
+        for(auto x: helper)
+        {
+            vector<string> res;
+            auto temp = mp[x];
+            sort(temp.begin(), temp.end(), cmp);
+            res.push_back(x);
+            res.push_back(temp[0].first);
+            ans.push_back(res);
+        }
+        return ans;
+    }
+};
